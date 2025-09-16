@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { InputContext } from "../context/InputContextProvider";
 
 function Sidebar() {
-  const { history,setCode} = useContext(InputContext);
+  const { history,setCode,setData} = useContext(InputContext);
   return (
     <div className="w-70 bg-gray-400 text-white flex flex-col min-h-screen">
       <div className="p-4  border-gray-700 mt-8">
@@ -26,8 +26,8 @@ function Sidebar() {
               key={item.id}
               className="w-150 text-left p-2 rounded hover:bg-gray-700 text-sm truncate"
               onClick={() => {
-                setCode(item.code); 
-                setData(item.data);   
+                setCode(item.orginalCode); 
+                setData(item.data)
                 }}
             >
               {item.title}
