@@ -116,7 +116,7 @@ export default function InputContextProvider({ children }) {
 
         const endTime=Date.now()
 
-        let output=result.candidates[0]?.content?.parts[0]?.text || "No response"
+        let output= await  result.candidates[0]?.content?.parts[0]?.text || "No response"
 
         let cleanOutput = output
             .replace(/```/g, '')                     
