@@ -43,18 +43,7 @@ Copy code
 - **State Management**: React Context API  
 - **Backend (Planned)**: OpenAI / Gemini API for code review  
 
-src/
-├── components/
-│ ├── Header.jsx # App header with navigation
-│ ├── Home.jsx # Main landing page
-│ ├── CodeInput.jsx # Input area for code + language selection
-│ ├── Result.jsx # Displays AI review results
-│ └── ui/ # Reusable UI components (buttons, cards, etc.)
-├── context/
-│ └── InputContext.jsx # Global context for code, language, and results
-├── App.jsx # App layout + routing
-├── main.jsx # Entry point
-└── index.css # Tailwind CSS styles
+
 ---
 
 ## ⚙️ Tech Stack
