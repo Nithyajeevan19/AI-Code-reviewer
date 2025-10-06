@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputContext } from "../context/InputContextProvider.jsx";
@@ -9,10 +10,18 @@ export default function LoginForm() {
   const { data } = useContext(InputContext);
   const navigate = useNavigate();
 
+=======
+import { useState } from "react";
+
+export default function LoginForm() {
+
+  const [formData, setFormData] = useState({ email: "", password: "" });
+>>>>>>> a9c53d22bb1a54f6c80d6a8526e2b5ed459d1ca6
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+<<<<<<< HEAD
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -96,5 +105,36 @@ export default function LoginForm() {
         </p>
       </form>
     </div>
+=======
+
+  return (
+    <form  className="max-w-sm mx-auto mt-20 p-6 bg-white shadow rounded">   
+      <h2 className="text-xl font-bold text-center mb-4">Login</h2>
+      <input
+        type="email" 
+        name="email"
+        placeholder="Email"
+        value={formData.email}
+        onChange={handleChange}
+        className="w-full mb-3 p-2 border rounded"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={formData.password}
+        onChange={handleChange}
+        className="w-full mb-3 p-2 border rounded"
+        required
+      />
+
+      <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+        Login
+      </button>
+
+    </form>
+
+>>>>>>> a9c53d22bb1a54f6c80d6a8526e2b5ed459d1ca6
   );
 }

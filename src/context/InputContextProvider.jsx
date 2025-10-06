@@ -24,6 +24,12 @@ export default function InputContextProvider({ children }) {
   const [format,setFormat]=useState('brief')
   const [tone,setTone]=useState('concise')
 
+<<<<<<< HEAD
+=======
+  console.log(data)
+  console.log(history)
+
+>>>>>>> a9c53d22bb1a54f6c80d6a8526e2b5ed459d1ca6
   useEffect(()=>{
     const savedHistory=localStorage.getItem('savedHistory')
     if (savedHistory){
@@ -154,6 +160,7 @@ export default function InputContextProvider({ children }) {
             }
             
     }catch (err) {
+<<<<<<< HEAD
       console.error(err);
       setData({
         summary: ["Server Error: Could not fetch AI response."],
@@ -162,6 +169,11 @@ export default function InputContextProvider({ children }) {
       });
       setIsLoading(false);
       setResponseTime("");
+=======
+        console.error(err);
+        setData("Error fetching AI response.");
+        setResponseTime("")
+>>>>>>> a9c53d22bb1a54f6c80d6a8526e2b5ed459d1ca6
     }
 
 };
@@ -188,6 +200,9 @@ export default function InputContextProvider({ children }) {
     >
       {children}
     </InputContext.Provider>
+<<<<<<< HEAD
 
+=======
+>>>>>>> a9c53d22bb1a54f6c80d6a8526e2b5ed459d1ca6
   );
 }

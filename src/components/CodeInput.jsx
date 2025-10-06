@@ -11,7 +11,11 @@ function CodeInput() {
 
     return (
     <>
+<<<<<<< HEAD
         <div className="max-w-5xl mx-auto p-6 mt-5 w-full">
+=======
+        <div className="max-w-4xl mx-auto p-6 mt-5 w-full">
+>>>>>>> a9c53d22bb1a54f6c80d6a8526e2b5ed459d1ca6
 
                 <div className="flex justify-between items-center border-b pb-4 border-gray-300">
                     <div className="flex items-center gap-2">
