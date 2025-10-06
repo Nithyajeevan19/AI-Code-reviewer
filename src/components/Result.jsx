@@ -43,61 +43,6 @@ const { data ,loading,responseTime,setResponseTime} = useContext(InputContext);
 
                     :
                     
-                    // <div>
-                    //     {data &&data.summary.length>0? (  
-                    //     <div>
-                    //         <div className="border shadow-xl/10 p-4 rounded-lg m-3">
-                    //             <h3 className="font-semibold text-blue-600">Summary</h3>
-                    //             <p className="text-gray-700">{data.summary}</p>
-                    //         </div>
-                    //         <div className="border shadow-xl/10 p-4 rounded-lg m-3">
-                    //             <h3 className="font-semibold text-red-600">Issues</h3>
-                    //             <ul className="list-disc list-inside text-gray-700">
-                    //                 {data.issues?.map((issue, i) => (
-                    //                 <li key={i}>{issue}</li>
-                    //                 ))}
-                    //             </ul>
-                    //         </div>
-                    //         <div className="border shadow-xl/10 p-4 rounded-lg m-3">
-                    //             <h3 className="font-semibold text-yellow-600">Suggestions</h3>
-                    //             <ul className="list-disc list-inside text-gray-700">
-                    //                 {data.suggestions?.map((sug, i) => (
-                    //                 <li key={i}>{sug}</li>
-                    //                 ))}
-                    //             </ul>
-                    //         </div>
-                    //         <div className="border shadow-xl/10 p-4 rounded-lg m-3">
-                    //             <h3 className="font-semibold text-green-600">Example Fixes</h3>
-                    //             <ul className="list-disc list-inside text-gray-700">
-                    //                 {data.fixes?.map((fix, i) => (
-                    //                 <li key={i}>
-                    //                     <p className="font-medium">{fix.description}</p>
-                    //                     <p className="bg-gray-100 p-2 rounded text-sm font-mono">
-                    //                     {fix.code}
-                    //                     </p>
-                    //                 </li>
-                    //                 ))}
-                    //             </ul>
-                    //         </div>
-
-
-                        
-                    //         <div className="border shadow-xl/10 p-4 rounded-lg m-3">
-                    //             <h3 className="text-green-800 text-lg ">Best Practises you can do:</h3>
-                    //             <ul className="list-disc list-inside text-gray-900">
-                    //                 {data.best_practices.map((each,i)=>{
-                    //                     return <li key={i}>{each}</li>
-                    //                 })}
-                    //             </ul>
-                    //         </div>
-                    // </div>):(
-                    //         <p className="text-gray-500">
-                    //             No analysis available. Please input code and submit for analysis.
-                    //         </p>
-                    //         )
-                    //     }
-                    // </div>
-
                     <div className="grid grid-cols-2 gap-4">
                     {data.summary && data.summary.length > 0 && (
                         <Card className="shadow-md border border-gray-200">

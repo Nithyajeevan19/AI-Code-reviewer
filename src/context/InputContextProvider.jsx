@@ -154,9 +154,14 @@ export default function InputContextProvider({ children }) {
             }
             
     }catch (err) {
-        console.error(err);
-        setData("Error fetching AI response.");
-        setResponseTime("")
+      console.error(err);
+      setData({
+        summary: ["Server Error: Could not fetch AI response."],
+        issues: [],
+        suggestions: [],
+      });
+      setIsLoading(false);
+      setResponseTime("");
     }
 
 };
