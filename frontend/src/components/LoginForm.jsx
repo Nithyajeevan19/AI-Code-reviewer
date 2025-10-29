@@ -22,7 +22,7 @@ export default function LoginForm() {
 
   const validateTokenAndRedirect = async (token) => {
     try {
-      const response = await fetch("http://localhost:5000/api/history/all", {
+      const response = await fetch("https://ai-code-reviewer-application.onrender.com/api/history/all", {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
