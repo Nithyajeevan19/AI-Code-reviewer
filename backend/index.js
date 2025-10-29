@@ -13,7 +13,7 @@ const port = process.env.PORT
 const mongoURI = process.env.mongo_uri
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://ai-code-reviewer-cvmi.vercel.app"],
+  origin: ["https://ai-code-reviewer-tau-orpin.vercel.app/login"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
