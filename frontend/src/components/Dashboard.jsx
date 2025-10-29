@@ -11,7 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/dashboard/history");
+        const res = await fetch("https://ai-code-reviewer-application.onrender.com/api/dashboard/history");
         const data = await res.json();
         setHistory(data);
       } catch (err) {

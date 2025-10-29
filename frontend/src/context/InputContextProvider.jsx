@@ -47,7 +47,7 @@ export default function InputContextProvider({ children }) {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/history/all', {
+      const response = await fetch('https://ai-code-reviewer-application.onrender.com/api/history/all', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ export default function InputContextProvider({ children }) {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/history/save', {
+      const response = await fetch('https://ai-code-reviewer-application.onrender.com/api/history/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
