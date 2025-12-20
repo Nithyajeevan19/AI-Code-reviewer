@@ -14,11 +14,12 @@ const mongoURI = process.env.mongo_uri
 
 app.use(cors({
   origin: [
-    "https://ai-code-reviewer-beta-eight.vercel.app",
-    "https://ai-code-reviewer-application.onrender.com",
-    "http://localhost:5174",
-    "http://localhost:5173",  // Added in case you use Vite's default port
-  ],
+  "https://ai-code-reviewer-beta-eight.vercel.app",
+  "https://ai-code-reviewer-application.onrender.com",
+  "http://localhost:5174",
+  "http://localhost:5173",
+  "http://localhost:3000",
+],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
