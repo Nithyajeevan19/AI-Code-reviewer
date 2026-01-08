@@ -14,19 +14,15 @@ app.use(cors({
   origin: [
     "https://ai-code-reviewer-beta-eight.vercel.app",
     "https://ai-code-reviewer-application.onrender.com",
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:3000",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-
-
 app.use(express.json());
 app.use('/api', authenticateRoute)
 app.use("/api/history", historyRoutes);
+
 
 mongoose.connect(mongoURI).then(() => {
     console.log("data base connected")
@@ -34,9 +30,8 @@ mongoose.connect(mongoURI).then(() => {
         console.log('server started')
     })
 })
-    .catch(err => {
+    .catch(err){
         console.error("MongoDB connection error:", err)
         process.exit(1)
-    });
-
+    };
 
