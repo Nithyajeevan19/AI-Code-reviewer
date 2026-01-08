@@ -32,6 +32,8 @@ export default function RegisterForm() {
       });
 
       const data = await res.json();
+      console.log(data)
+
 
       if (res.ok) {
         setMessage("Registration successful! Redirecting to login...");

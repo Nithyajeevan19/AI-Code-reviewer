@@ -25,6 +25,7 @@ export default function InputContextProvider({ children }) {
   const [format, setFormat] = useState('brief');
   const [tone, setTone] = useState('concise');
 
+  
   // FIXED: Better token and auth state management
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -95,7 +96,6 @@ export default function InputContextProvider({ children }) {
         const result = await response.json();
         console.log('History saved successfully:', result);
 
-        //FIXED: Update local state correctly
         setHistory(prev => [result.history, ...prev]);
       } else {
         console.error(' Failed to save history:', response.status);
@@ -177,6 +177,7 @@ export default function InputContextProvider({ children }) {
         analysisResult: parsedData,
       });
 
+      
     } catch (e) {
       console.error(" Error:", e);
       setData({

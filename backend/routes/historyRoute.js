@@ -9,3 +9,5 @@ historyRoutes.get("/all", authenticateToken, getUserHistory);
 historyRoutes.get('/history', authenticateToken, getUserHistory);
 
 export default historyRoutes;
+
+

@@ -2,36 +2,31 @@ import express from 'express'
 import mongoose from "mongoose";
 import dotenv from 'dotenv'
 import cors from "cors";
-
 import authenticateRoute from './routes/authenticateRoutes.js'
 import historyRoutes from './routes/historyRoute.js'
 
 const app = express()
 dotenv.config()
-
 const port = process.env.PORT
 const mongoURI = process.env.mongo_uri
 
 app.use(cors({
   origin: [
-  "https://ai-code-reviewer-beta-eight.vercel.app",
-  "https://ai-code-reviewer-application.onrender.com",
-  "http://localhost:5174",
-  "http://localhost:5173",
-  "http://localhost:3000",
-],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
+    "https://ai-code-reviewer-beta-eight.vercel.app",
+    "https://ai-code-reviewer-application.onrender.com",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:3000",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 
-app.use(express.json());
 
+app.use(express.json());
 app.use('/api', authenticateRoute)
 app.use("/api/history", historyRoutes);
-
-
 
 mongoose.connect(mongoURI).then(() => {
     console.log("data base connected")
@@ -43,4 +38,5 @@ mongoose.connect(mongoURI).then(() => {
         console.error("MongoDB connection error:", err)
         process.exit(1)
     });
+
 
