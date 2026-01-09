@@ -1,37 +1,42 @@
-import express from 'express'
+import express from "express";
 import mongoose from "mongoose";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 import cors from "cors";
-import authenticateRoute from './routes/authenticateRoutes.js'
-import historyRoutes from './routes/historyRoute.js'
 
-const app = express()
-dotenv.config()
-const port = process.env.PORT
-const mongoURI = process.env.mongo_uri
+import authenticateRoute from "./routes/authenticateRoutes.js";
+import historyRoutes from "./routes/historyRoute.js";
 
-app.use(cors({
-  origin: [
-    "https://ai-code-reviewer-beta-eight.vercel.app",
-    "https://ai-code-reviewer-application.onrender.com",
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+const app = express();
+dotenv.config();
+
+const port = process.env.PORT || 5000;
+const mongoURI = process.env.mongo_uri;
+
+app.use(
+  cors({
+    origin: [
+      "https://ai-code-reviewer-beta-eight.vercel.app",
+      "https://ai-code-reviewer-application.onrender.com",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
-app.use('/api', authenticateRoute)
+
+app.use("/api", authenticateRoute);
 app.use("/api/history", historyRoutes);
 
-
-mongoose.connect(mongoURI).then(() => {
-    console.log("data base connected")
+mongoose
+  .connect(mongoURI)
+  .then(() => {
+    console.log("Database connected");
     app.listen(port, () => {
-        console.log('server started')
-    })
-})
-    .catch(err){
-        console.error("MongoDB connection error:", err)
-        process.exit(1)
-    };
-
+      console.log(`Server started on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1);
+  });
