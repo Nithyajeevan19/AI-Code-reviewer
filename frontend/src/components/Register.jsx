@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = rawApiUrl.endsWith('/') ? rawApiUrl.slice(0, -1) : rawApiUrl;
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function RegisterForm() {
     setMessage("");
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/register`, {
+      const res = await fetch(`${API_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

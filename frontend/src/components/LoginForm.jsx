@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = rawApiUrl.endsWith('/') ? rawApiUrl.slice(0, -1) : rawApiUrl;
 
 export default function LoginForm() {
   
@@ -27,7 +28,7 @@ export default function LoginForm() {
   const validateTokenAndRedirect = async (token) => {
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/history/all`, {
+      const response = await fetch(`${API_URL}/api/history/all`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -55,7 +56,7 @@ export default function LoginForm() {
     setMessage("");
 
     try {
-      const url = `${API_BASE_URL}/api/login`;
+      const url = `${API_URL}/api/login`;
 
       const res = await fetch(url, {
         method: "POST",
