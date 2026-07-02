@@ -1,26 +1,24 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { InputContext } from "../context/InputContextProvider";
 
 const Dashboard = () => {
-  const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { history, fetchHistoryFromBackend } = useContext(InputContext);
+  const [loading, setLoading] = useState(!history || history.length === 0);
 
-  // Fetch user analysis history
   useEffect(() => {
-    const fetchHistory = async () => {
+    const loadHistory = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/dashboard/history");
-        const data = await res.json();
-        setHistory(data);
+        await fetchHistoryFromBackend();
       } catch (err) {
         console.error("Failed to fetch history:", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchHistory();
+    loadHistory();
   }, []);
 
   if (loading) return <p className="text-center mt-10 text-gray-400">Loading...</p>;

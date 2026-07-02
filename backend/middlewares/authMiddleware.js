@@ -15,7 +15,7 @@ export const authenticateToken = async (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.secret_key);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || process.env.secret_key || "secret_key_no_12345");
         req.user = { id: decoded.id, email: decoded.email }; 
         next();
     } catch (error) {

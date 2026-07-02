@@ -99,11 +99,10 @@ export const authenticateUserLogin = async (req, res) => {
         ok: false 
       });
     }
-
     // Generate JWT token
     const accesstoken = jwt.sign(
       { id: user._id, email: user.email },
-      process.env.secret_key,
+      process.env.JWT_SECRET || process.env.secret_key || "secret_key_no_12345",
       { expiresIn: "1h" }
     );
 

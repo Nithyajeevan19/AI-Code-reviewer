@@ -1,3 +1,28 @@
+# Dependency directories
 node_modules/
-./backend/.env
-./frontend/.env
+backend/node_modules/
+frontend/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+.env.staging
+backend/.env
+backend/.env.local
+frontend/.env
+frontend/.env.local
+
+# Production/Build outputs
+dist/
+build/
+frontend/dist/
+frontend/build/
+
+# Testing/Coverage outputs
+coverage/
+
+# OS/System files
+.DS_Store
+Thumbs.db

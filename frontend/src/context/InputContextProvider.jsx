@@ -2,6 +2,7 @@ import { useState, createContext, useEffect } from "react";
 import formatExactTime from "../utility/timeResponse";
 
 export const InputContext = createContext();
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 export default function InputContextProvider({ children }) {
   const [language, setLanguage] = useState("javascript");
@@ -49,7 +50,7 @@ export default function InputContextProvider({ children }) {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/history/all', {
+      const response = await fetch(`${API_BASE_URL}/api/history/all`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -85,7 +86,7 @@ export default function InputContextProvider({ children }) {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/history/save', {
+      const response = await fetch(`${API_BASE_URL}/api/history/save`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ export default function InputContextProvider({ children }) {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/analysis/analyze", {
+      const res = await fetch(`${API_BASE_URL}/api/analysis/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
