@@ -4,11 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+
 export default function LoginForm() {
+  
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [message, setMessage] = useState(""); 
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
 
   //FIXED: Better token check logic
   useEffect(() => {
@@ -21,21 +24,21 @@ export default function LoginForm() {
 
 
   const validateTokenAndRedirect = async (token) => {
+
     try {
-      const response = await fetch("https://ai-code-reviewer-application.onrender.com/api/history/all", {
+      const response = await fetch("http://localhost:5000/api/history/all", {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      
       if (response.ok) {
         navigate("/");
       } else {
         // Token is invalid, remove it
         localStorage.removeItem('token');
       }
-    } catch (error) {
+    } catch {
       localStorage.removeItem('token');
     }
   };
@@ -44,13 +47,16 @@ export default function LoginForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
 
     try {
-      const res = await fetch("https://ai-code-reviewer-application.onrender.com/api/login", {
+      const url = "http://localhost:5000/api/login";
+
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +69,7 @@ export default function LoginForm() {
       if (res.ok) {
         localStorage.setItem("token", data.jwt_token);
         setMessage("Login successful! Redirecting...");
-        
+
         setTimeout(() => {
           navigate("/");
           window.location.reload(); // Ensure context refreshes
@@ -129,11 +135,10 @@ export default function LoginForm() {
             </Button>
 
             {message && (
-              <p className={`text-center text-sm font-medium ${
-                message.includes('successful') || message.includes('✅') 
-                  ? 'text-green-600' 
+              <p className={`text-center text-sm font-medium ${message.includes('successful') || message.includes('✅')
+                  ? 'text-green-600'
                   : 'text-red-600'
-              }`}>
+                }`}>
                 {message}
               </p>
             )}
@@ -147,7 +152,9 @@ export default function LoginForm() {
                 Register
               </span>
             </p>
+
           </form>
+
         </div>
       </div>
     </div>

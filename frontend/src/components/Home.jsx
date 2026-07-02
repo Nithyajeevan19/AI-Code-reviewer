@@ -3,11 +3,11 @@ import CodeInput from './CodeInput';
 import Result from './Result';
 import SideBar from './SideBar';
 import Header from './Header';
-import { Menu, X } from 'lucide-react';
+
+
 
 function Home() {
   
-
   return (
     <div className="h-screen bg-slate-950 flex flex-col overflow-hidden">
       {/* Animated Background */}
@@ -17,11 +17,10 @@ function Home() {
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
       </div>
 
-      {/* Header - Fixed height */}
       <Header />
       
-      {/* Main Container - Takes remaining height */}
       <div className="flex flex-1 overflow-hidden">
+
         {/* Mobile Menu Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -46,7 +45,7 @@ function Home() {
             />
         </AnimatePresence>
 
-        {/* Sidebar - Fixed width, full height with own scroll */}
+        {/* Sidebar */}
         <motion.div
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -60,6 +59,7 @@ function Home() {
         </motion.div>
 
         {/* Main Content - Split Screen with independent scrolls */}
+
         <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
           {/* Left: Code Input - Independent scroll */}
           <motion.div
@@ -72,6 +72,7 @@ function Home() {
           </motion.div>
 
           {/* Right: Results - Independent scroll */}
+
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -80,6 +81,7 @@ function Home() {
           >
             <Result />
           </motion.div>
+
         </div>
       </div>
     </div>

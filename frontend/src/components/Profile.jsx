@@ -26,8 +26,12 @@ export default function Profile() {
         return;
       }
 
-      // You can decode JWT to get user info without API call
-      const payload = JSON.parse(atob(token.split('.')));
+      let payload;
+      try {
+        payload = JSON.parse(atob(token.split('.')[1]));
+      } catch {
+        payload = { username: 'User', email: 'Not available' };
+      }
       
       setUserInfo({
         username: payload.username || 'User',

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/UserModel.js";
 
 export const authenticateUserRegister = async (req, res) => {
+  
   try {
     const { username, password, email } = req.body;
 
@@ -53,7 +54,7 @@ export const authenticateUserRegister = async (req, res) => {
 
 export const authenticateUserLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } =req.body;
 
     // Check empty fields
     if (!email || !password) {

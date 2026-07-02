@@ -21,6 +21,7 @@ function CodeInput() {
         }
     };
 
+    
     return (
         <div className="h-full flex flex-col bg-slate-900/50 backdrop-blur-xl">
             {/* Header - Fixed height, no scroll */}

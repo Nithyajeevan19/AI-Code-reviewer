@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -12,8 +14,6 @@ export default function RegisterForm() {
   });
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +25,7 @@ export default function RegisterForm() {
     setMessage("");
 
     try {
-      const res = await fetch("https://ai-code-reviewer-application.onrender.com/api/register", {
+      const res = await fetch("http://localhost:5000/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -37,7 +37,7 @@ export default function RegisterForm() {
 
       if (res.ok) {
         setMessage("Registration successful! Redirecting to login...");
-        setTimeout(() => navigate("/login"), 1200); 
+        setTimeout(() => navigate("/login"), 1200);
       } else {
         setMessage(data.message || "Registration failed");
       }

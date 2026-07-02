@@ -1,7 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import formatExactTime from "../utility/timeResponse";
-export const InputContext = createContext();
 
+export const InputContext = createContext();
 
 export default function InputContextProvider({ children }) {
   const [language, setLanguage] = useState("javascript");
@@ -19,13 +19,13 @@ export default function InputContextProvider({ children }) {
     code_style: [],
   });
 
+  
   const [loading, setIsLoading] = useState(false);
   const [responseTime, setResponseTime] = useState("");
   const [history, setHistory] = useState([]);
   const [format, setFormat] = useState('brief');
   const [tone, setTone] = useState('concise');
 
-  
   // FIXED: Better token and auth state management
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -38,6 +38,7 @@ export default function InputContextProvider({ children }) {
     }
   }, []);
 
+
   // Fetch history from backend
   const fetchHistoryFromBackend = async () => {
     try {
@@ -48,7 +49,7 @@ export default function InputContextProvider({ children }) {
         return;
       }
 
-      const response = await fetch('https://ai-code-reviewer-application.onrender.com/api/history/all', {
+      const response = await fetch('http://localhost:5000/api/history/all', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -75,6 +76,7 @@ export default function InputContextProvider({ children }) {
     }
   };
 
+
   const saveHistoryToBackend = async (historyData) => {
     try {
       const token = localStorage.getItem('token');
@@ -83,7 +85,7 @@ export default function InputContextProvider({ children }) {
         return;
       }
 
-      const response = await fetch('https://ai-code-reviewer-application.onrender.com/api/history/save', {
+      const response = await fetch('http://localhost:5000/api/history/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -106,64 +108,64 @@ export default function InputContextProvider({ children }) {
   };
 
   // FIXED: Enhanced handleSubmit with better error handling
+  // frontend - InputContextProvider.jsx
   const handleSubmit = async () => {
     setResponseTime("");
     const startTime = Date.now();
     if (!code.trim()) return;
     setIsLoading(true);
 
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      setData({
+        title: "Authentication Error",
+        summary: ["Please log in first to analyze code"],
+        issues: [],
+        suggestions: [],
+        fixes: [],
+        best_practices: [],
+        complexity_analysis: [],
+        security_concerns: [],
+        optimization_opportunities: [],
+        code_style: [],
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [
-                  {
-                    text: `You are a senior software engineer and professional code reviewer.
-                  Return the response **strictly in valid JSON** with fields:
-                  {
-                  "title": "",
-                  "summary": [],
-                  "issues": [],
-                  "suggestions": [],
-                  "fixes": [{"description": "", "code": ""}],
-                  "best_practices": [],
-                  "complexity_analysis": [],
-                  "security_concerns": [],
-                  "optimization_opportunities": [],
-                  "code_style": []
-                  }
-                  Format: ${format}
-                  Tone: ${tone}
-                  Code (${language}):
-                  ${code}`
-                  },
-                ],
-              },
-            ],
-          }),
-        }
-      );
+      const res = await fetch("http://localhost:5000/api/analysis/analyze", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          code,
+          language,
+          format,
+          tone
+        })
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to analyze code");
+      }
 
       const result = await res.json();
       const endTime = Date.now();
       const timeTaken = endTime - startTime;
       setResponseTime(formatExactTime(timeTaken));
 
-      const output = result?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-      if (!output) throw new Error("Empty AI response");
+      //Backend now returns { ok: true, data: parsedData }
+      const parsedData = result.data;
 
-      const cleanOutput = output
-        .replace(/```json/gi, "")
-        .replace(/```/g, "")
-        .trim();
+      if (!parsedData) {
+        throw new Error("No data received from server");
+      }
 
-      const parsedData = JSON.parse(cleanOutput);
       setData(parsedData);
       setIsLoading(false);
 
@@ -177,12 +179,11 @@ export default function InputContextProvider({ children }) {
         analysisResult: parsedData,
       });
 
-      
     } catch (e) {
-      console.error(" Error:", e);
+      console.error("Error:", e);
       setData({
         title: "Analysis Error",
-        summary: ["Failed to parse AI response or API returned invalid data."],
+        summary: [e.message || "Failed to parse AI response or API returned invalid data."],
         issues: [],
         suggestions: [],
         fixes: [],
@@ -197,7 +198,7 @@ export default function InputContextProvider({ children }) {
   };
 
 
-  // NEW: Method to handle logout
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
@@ -245,3 +246,5 @@ export default function InputContextProvider({ children }) {
     </InputContext.Provider>
   );
 }
+
+
