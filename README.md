@@ -36,7 +36,7 @@ This repository contains the full stack MERN AI Code Reviewer application. It al
    ```
 2. Create a `.env` file containing:
    ```env
-   VITE_API_BASE_URL=http://localhost:5000
+   VITE_API_URL=https://ai-code-reviewer-2-rkq0.onrender.com/
    ```
 3. Install dependencies and start the development server:
    ```bash
@@ -58,4 +58,4 @@ This repository contains the full stack MERN AI Code Reviewer application. It al
   - `NODE_ENV` (set to `production`)
 
 ### Frontend (Vercel)
-- Configure the environment variable `VITE_API_BASE_URL` in Vercel to point to your deployed Render backend URL (e.g. `https://your-backend.onrender.com`).
+- Configure the environment variable `VITE_API_URL` in Vercel to point to your deployed Render backend URL (`https://ai-code-reviewer-2-rkq0.onrender.com`).

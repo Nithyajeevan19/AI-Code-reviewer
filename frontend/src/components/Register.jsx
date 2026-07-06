@@ -4,8 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const API_URL = rawApiUrl.endsWith('/') ? rawApiUrl.slice(0, -1) : rawApiUrl;
+const getApiUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl || envUrl === "undefined" || envUrl === "null") {
+    return "https://ai-code-reviewer-2-rkq0.onrender.com";
+  }
+  return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
+};
+const API_URL = getApiUrl();
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -46,7 +52,7 @@ export default function RegisterForm() {
       }
     } catch (error) {
       console.error("Registration error:", error);
-      setMessage("Server error. Make sure your backend is running on port 5000.");
+      setMessage("Unable to connect to the backend service.");
     } finally {
       setLoading(false);
     }

@@ -15,17 +15,23 @@ dotenv.config();
 const port = process.env.PORT || 5000;
 const mongoURI = process.env.MONGO_URI;
 
-//"https://ai-code-reviewer-beta-eight.vercel.app",
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://ai-code-reviewer-beta-eight.vercel.app"],
+  origin: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
 app.use(express.json());
-app.use(cors());
+
+// Health check endpoint
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Backend is running"
+  });
+});
 
 app.use("/api", authenticateRoute);
 app.use("/api/history", historyRoutes);

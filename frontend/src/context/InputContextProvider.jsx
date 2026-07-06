@@ -2,8 +2,14 @@ import { useState, createContext, useEffect } from "react";
 import formatExactTime from "../utility/timeResponse";
 
 export const InputContext = createContext();
-const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const API_URL = rawApiUrl.endsWith('/') ? rawApiUrl.slice(0, -1) : rawApiUrl;
+const getApiUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl || envUrl === "undefined" || envUrl === "null") {
+    return "https://ai-code-reviewer-2-rkq0.onrender.com";
+  }
+  return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
+};
+const API_URL = getApiUrl();
 
 export default function InputContextProvider({ children }) {
   const [language, setLanguage] = useState("javascript");

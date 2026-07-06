@@ -4,8 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const API_URL = rawApiUrl.endsWith('/') ? rawApiUrl.slice(0, -1) : rawApiUrl;
+const getApiUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl || envUrl === "undefined" || envUrl === "null") {
+    return "https://ai-code-reviewer-2-rkq0.onrender.com";
+  }
+  return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
+};
+const API_URL = getApiUrl();
 
 export default function LoginForm() {
   
@@ -26,7 +32,6 @@ export default function LoginForm() {
 
 
   const validateTokenAndRedirect = async (token) => {
-
     try {
       const response = await fetch(`${API_URL}/api/history/all`, {
         headers: {
@@ -36,12 +41,12 @@ export default function LoginForm() {
       });
       if (response.ok) {
         navigate("/");
-      } else {
+      } else if (response.status === 401 || response.status === 403) {
         // Token is invalid, remove it
         localStorage.removeItem('token');
       }
-    } catch {
-      localStorage.removeItem('token');
+    } catch (err) {
+      console.error("Token validation error:", err);
     }
   };
 
@@ -82,7 +87,7 @@ export default function LoginForm() {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setMessage("Server error. backend is not running");
+      setMessage("Unable to connect to the backend service.");
     } finally {
       setLoading(false);
     }
